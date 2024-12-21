@@ -37,7 +37,21 @@
             label2 = new Label();
             BtnPostPutDepartamento = new Button();
             lblEmpleado = new Label();
-            button1 = new Button();
+            btnEmpleado = new Button();
+            label3 = new Label();
+            btnInventario = new Button();
+            label4 = new Label();
+            btnMaquina = new Button();
+            label5 = new Label();
+            btnMateriaPrima = new Button();
+            label6 = new Label();
+            btnOrdenProduccion = new Button();
+            label7 = new Label();
+            btnProceso = new Button();
+            label8 = new Label();
+            btnProducto = new Button();
+            label9 = new Label();
+            btnRechazo = new Button();
             SuspendLayout();
             // 
             // BtnGetAll
@@ -127,23 +141,170 @@
             lblEmpleado.TabIndex = 26;
             lblEmpleado.Text = "Empleado";
             // 
-            // button1
+            // btnEmpleado
             // 
-            button1.Location = new Point(297, 154);
-            button1.Name = "button1";
-            button1.Size = new Size(113, 32);
-            button1.TabIndex = 25;
-            button1.Text = "Post y Put ";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnEmpleado.Location = new Point(297, 154);
+            btnEmpleado.Name = "btnEmpleado";
+            btnEmpleado.Size = new Size(113, 32);
+            btnEmpleado.TabIndex = 25;
+            btnEmpleado.Text = "Post y Put ";
+            btnEmpleado.UseVisualStyleBackColor = true;
+            btnEmpleado.Click += button1_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(297, 191);
+            label3.Name = "label3";
+            label3.Size = new Size(75, 20);
+            label3.TabIndex = 28;
+            label3.Text = "Inventario";
+            // 
+            // btnInventario
+            // 
+            btnInventario.Location = new Point(297, 214);
+            btnInventario.Name = "btnInventario";
+            btnInventario.Size = new Size(113, 32);
+            btnInventario.TabIndex = 27;
+            btnInventario.Text = "Post y Put ";
+            btnInventario.UseVisualStyleBackColor = true;
+            btnInventario.Click += btnInventario_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(297, 244);
+            label4.Name = "label4";
+            label4.Size = new Size(67, 20);
+            label4.TabIndex = 30;
+            label4.Text = "Maquina";
+            // 
+            // btnMaquina
+            // 
+            btnMaquina.Location = new Point(297, 267);
+            btnMaquina.Name = "btnMaquina";
+            btnMaquina.Size = new Size(113, 32);
+            btnMaquina.TabIndex = 29;
+            btnMaquina.Text = "Post y Put ";
+            btnMaquina.UseVisualStyleBackColor = true;
+            btnMaquina.Click += btnMaquina_Click;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(297, 304);
+            label5.Name = "label5";
+            label5.Size = new Size(102, 20);
+            label5.TabIndex = 32;
+            label5.Text = "Materia Prima";
+            // 
+            // btnMateriaPrima
+            // 
+            btnMateriaPrima.Location = new Point(297, 327);
+            btnMateriaPrima.Name = "btnMateriaPrima";
+            btnMateriaPrima.Size = new Size(113, 32);
+            btnMateriaPrima.TabIndex = 31;
+            btnMateriaPrima.Text = "Post y Put ";
+            btnMateriaPrima.UseVisualStyleBackColor = true;
+            btnMateriaPrima.Click += btnMateriaPrima_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(297, 369);
+            label6.Name = "label6";
+            label6.Size = new Size(128, 20);
+            label6.TabIndex = 34;
+            label6.Text = "Orden Produccion";
+            // 
+            // btnOrdenProduccion
+            // 
+            btnOrdenProduccion.Location = new Point(297, 392);
+            btnOrdenProduccion.Name = "btnOrdenProduccion";
+            btnOrdenProduccion.Size = new Size(113, 32);
+            btnOrdenProduccion.TabIndex = 33;
+            btnOrdenProduccion.Text = "Post y Put ";
+            btnOrdenProduccion.UseVisualStyleBackColor = true;
+            btnOrdenProduccion.Click += btnOrdenProduccion_Click;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(440, 10);
+            label7.Name = "label7";
+            label7.Size = new Size(61, 20);
+            label7.TabIndex = 36;
+            label7.Text = "Proceso";
+            // 
+            // btnProceso
+            // 
+            btnProceso.Location = new Point(440, 33);
+            btnProceso.Name = "btnProceso";
+            btnProceso.Size = new Size(113, 32);
+            btnProceso.TabIndex = 35;
+            btnProceso.Text = "Post y Put ";
+            btnProceso.UseVisualStyleBackColor = true;
+            btnProceso.Click += btnProceso_Click;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(440, 68);
+            label8.Name = "label8";
+            label8.Size = new Size(69, 20);
+            label8.TabIndex = 38;
+            label8.Text = "Producto";
+            // 
+            // btnProducto
+            // 
+            btnProducto.Location = new Point(440, 91);
+            btnProducto.Name = "btnProducto";
+            btnProducto.Size = new Size(113, 32);
+            btnProducto.TabIndex = 37;
+            btnProducto.Text = "Post y Put ";
+            btnProducto.UseVisualStyleBackColor = true;
+            btnProducto.Click += btnProducto_Click;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(440, 131);
+            label9.Name = "label9";
+            label9.Size = new Size(65, 20);
+            label9.TabIndex = 40;
+            label9.Text = "Rechazo";
+            // 
+            // btnRechazo
+            // 
+            btnRechazo.Location = new Point(440, 154);
+            btnRechazo.Name = "btnRechazo";
+            btnRechazo.Size = new Size(113, 32);
+            btnRechazo.TabIndex = 39;
+            btnRechazo.Text = "Post y Put ";
+            btnRechazo.UseVisualStyleBackColor = true;
+            btnRechazo.Click += btnRechazo_Click;
             // 
             // FrmMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label9);
+            Controls.Add(btnRechazo);
+            Controls.Add(label8);
+            Controls.Add(btnProducto);
+            Controls.Add(label7);
+            Controls.Add(btnProceso);
+            Controls.Add(label6);
+            Controls.Add(btnOrdenProduccion);
+            Controls.Add(label5);
+            Controls.Add(btnMateriaPrima);
+            Controls.Add(label4);
+            Controls.Add(btnMaquina);
+            Controls.Add(label3);
+            Controls.Add(btnInventario);
             Controls.Add(lblEmpleado);
-            Controls.Add(button1);
+            Controls.Add(btnEmpleado);
             Controls.Add(label2);
             Controls.Add(BtnPostPutDepartamento);
             Controls.Add(label1);
@@ -170,6 +331,20 @@
         private Label label2;
         private Button BtnPostPutDepartamento;
         private Label lblEmpleado;
-        private Button button1;
+        private Button btnEmpleado;
+        private Label label3;
+        private Button btnInventario;
+        private Label label4;
+        private Button btnMaquina;
+        private Label label5;
+        private Button btnMateriaPrima;
+        private Label label6;
+        private Button btnOrdenProduccion;
+        private Label label7;
+        private Button btnProceso;
+        private Label label8;
+        private Button btnProducto;
+        private Label label9;
+        private Button btnRechazo;
     }
 }

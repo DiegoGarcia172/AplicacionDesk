@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,44 +11,13 @@ using System.Windows.Forms;
 
 namespace AplicacionDesk
 {
-    public partial class FrmDeleteArg : Form
+    public partial class FrmMateriaPrima : Form
     {
-        public FrmDeleteArg()
+        public FrmMateriaPrima()
         {
             InitializeComponent();
         }
-        private async Task<bool> EjecutarAccionApi(string url, HttpMethod metodo, string token, string jsonBody = null)
-        {
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-                    HttpRequestMessage request = new HttpRequestMessage(metodo, url);
-                    if (!string.IsNullOrEmpty(jsonBody))
-                    {
-                        request.Content = new StringContent(jsonBody, System.Text.Encoding.UTF8, "application/json");
-                    }
-                    HttpResponseMessage response = await client.SendAsync(request);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        string errorBody = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show($"Error: {response.StatusCode} - {errorBody}");
-                        return false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ocurrió un error: {ex.Message}");
-                return false;
-            }
-        }
-        private async Task EjecutarAccion1(string url, bool esLogin)
+        private async Task EjecutarAccionLoginRegistro(string url, bool esLogin)
         {
             string nombre = txtNombre.Text;
             string correo = txtCorreo.Text;
@@ -59,12 +27,7 @@ namespace AplicacionDesk
                 MessageBox.Show("Por favor, complete todos los campos.");
                 return;
             }
-            var datos = new
-            {
-                nombre = nombre,
-                correo = correo,
-                clave = clave
-            };
+            var datos = new { nombre, correo, clave };
             try
             {
                 using (HttpClient client = new HttpClient())
@@ -79,6 +42,7 @@ namespace AplicacionDesk
                         {
                             var respuesta = JsonConvert.DeserializeObject<dynamic>(responseBody);
                             string token = respuesta?.token;
+
                             if (!string.IsNullOrEmpty(token))
                             {
                                 txtToken.Text = token;
@@ -106,55 +70,95 @@ namespace AplicacionDesk
                 MessageBox.Show($"Ocurrió un error: {ex.Message}");
             }
         }
+        private async Task<bool> EjecutarPostPut(string url, string token, object datos, HttpMethod metodo)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                    string jsonBody = JsonConvert.SerializeObject(datos);
+                    HttpRequestMessage request = new HttpRequestMessage(metodo, url)
+                    {
+                        Content = new StringContent(jsonBody, Encoding.UTF8, "application/json")
+                    };
+                    HttpResponseMessage response = await client.SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        string errorBody = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show($"Error: {response.StatusCode} - {errorBody}");
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                return false;
+            }
+        }
         private async void btnObtenerToken_Click(object sender, EventArgs e)
         {
             string urlLogin = "https://localhost:7140/api/Acceso/Login";
-            await EjecutarAccion1(urlLogin, true);
+            await EjecutarAccionLoginRegistro(urlLogin, true);
         }
         private async void btnRegistrar_Click(object sender, EventArgs e)
         {
             string urlRegistro = "https://localhost:7140/api/Acceso/Registrar";
-            await EjecutarAccion1(urlRegistro, false);
+            await EjecutarAccionLoginRegistro(urlRegistro, false);
         }
         private void btnMenu_Click(object sender, EventArgs e)
         {
-            FrmMenu frm = new FrmMenu();
-            frm.Show();
+            this.Close();
         }
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-        private async void btnConsutlar_Click_1(object sender, EventArgs e)
+        private async void btnPost_Click(object sender, EventArgs e)
         {
-            string apiUrl = txtUrl.Text; 
-            string id = txtID.Text;
+            string apiUrl = txtUrl.Text;
             string token = txtToken.Text;
-            if (string.IsNullOrWhiteSpace(apiUrl))
+            if (string.IsNullOrWhiteSpace(apiUrl) || string.IsNullOrWhiteSpace(token))
             {
-                MessageBox.Show("Por favor, ingrese una URL válida.");
+                MessageBox.Show("Por favor, ingrese una URL válida y el token.");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(id))
+            var datos = new
             {
-                MessageBox.Show("Por favor, ingrese un ID válido.");
+                id = 0,
+                controlUnitario = txtControlUnitario.Text
+            };
+            bool success = await EjecutarPostPut(apiUrl, token, datos, HttpMethod.Post);
+            MessageBox.Show(success ? "Materia Prima creada exitosamente." : "No se pudo crear la Materia Prima.");
+        }
+        private async void btnPut_Click(object sender, EventArgs e)
+        {
+            string apiUrl = txtUrl.Text;
+            string token = txtToken.Text;
+            string id = txtid.Text;
+            if (string.IsNullOrWhiteSpace(apiUrl) || string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(id))
+            {
+                MessageBox.Show("Por favor, ingrese una URL válida, el token y el ID.");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(token))
+            if (!int.TryParse(id, out var idValue))
             {
-                MessageBox.Show("Por favor, ingrese un token válido.");
+                MessageBox.Show("El ID debe ser un número válido.");
                 return;
             }
-            string fullUrl = $"{apiUrl}/{id}";
-            bool success = await EjecutarAccionApi(fullUrl, HttpMethod.Delete, token);
-            if (success)
+            var datos = new
             {
-                MessageBox.Show("Eliminado exitosamente.");
-            }
-            else
-            {
-                MessageBox.Show("No se pudo eliminar el registro.");
-            }
+                id = idValue,
+                controlUnitario = txtControlUnitario.Text
+            };
+            string fullUrl = $"{apiUrl}/{idValue}";
+            bool success = await EjecutarPostPut(fullUrl, token, datos, HttpMethod.Put);
+            MessageBox.Show(success ? "Materia Prima actualizada exitosamente." : "No se pudo actualizar la Materia Prima.");
         }
     }
 }
